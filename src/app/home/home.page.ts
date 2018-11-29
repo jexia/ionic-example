@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JexiaDataService } from '../services/jexia-data.service';
 import { ITeacher } from '../interfaces/ITeacher';
+import { ILocation } from '../interfaces/ILocation';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -9,7 +10,7 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit {
-  location: Object;
+  location: ILocation;
   currentTeachers: ITeacher[];
 
   constructor(private jexiaDataService: JexiaDataService, private storage: Storage) {}
@@ -19,11 +20,12 @@ export class HomePage implements OnInit {
   }
 
   showNearestTeacher(){
+    
     this.jexiaDataService.currentMessage.subscribe(message => this.currentTeachers = message)
     //check if there is a value in local storage
     this.storage.get('location').then((val) => {
     //if the currentTeachers has not yet been filled, use the entire dataset with records
-    if((this.currentTeachers == null) && (val == undefined)) {
+    if((this.currentTeachers == undefined || this.currentTeachers.length == 0) && (val == undefined)) {
       this.jexiaDataService.getAllTeachers();  
     } else {
       this.location = JSON.parse(val);
