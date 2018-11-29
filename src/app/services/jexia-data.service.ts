@@ -15,7 +15,7 @@ export class JexiaDataService {
   //select it and execute it 
   teachers: Promise<ITeacher[]> = this.teacherdataset.select().execute();
   //initalize behaviorsubject, default value is null
-  teacherSource: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  teacherSource: BehaviorSubject<ITeacher[]> = new BehaviorSubject<ITeacher[]>(null);
   //using only the observable side of the behaviorsubject and let other components subscribe
   currentMessage: Observable<ITeacher[]> = this.teacherSource.asObservable();
 
@@ -23,7 +23,7 @@ export class JexiaDataService {
 
  updateTeachers(teacherobj: any): void {
   let filterCondition = field("location").isEqualTo(teacherobj.city)
-  let filteredTeachers = this.teacherdataset.select().where(filterCondition).execute().then(data => {
+  this.teacherdataset.select().where(filterCondition).execute().then(data => {
     //sending out the messagestream
     this.teacherSource.next(data);
   });
