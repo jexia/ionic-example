@@ -22,9 +22,9 @@ import { NgJexiaModule, DataOperationsModule } from '@jexia/ng-jexia';
     HttpClientModule,
     IonicStorageModule.forRoot(),
     NgJexiaModule.initialize({
-      projectID: '58c0dce5-5290-4504-a0da-9d43b3f9453d',
-      key: '9f156831-547c-4c22-876e-6e4ffaeed229',
-      secret: 'kjqaeCiuOOdt5raM',
+      projectID: '<your-project-id>',
+      key: '<your-key>',
+      secret: '<your-secret>',
       providers: [
         DataOperationsModule,
       ],
